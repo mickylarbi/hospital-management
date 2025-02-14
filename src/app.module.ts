@@ -10,6 +10,7 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './auth/jwt.strategy';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { GenkitService } from './genkit/genkit.service';
 
 @Module({
   imports: [
@@ -18,7 +19,6 @@ import { ThrottlerModule } from '@nestjs/throttler';
       limit: 10,
     }]),
     AuthModule,
-    UserModule,
     PrismaModule.forRoot({
       isGlobal: true
     }),
@@ -35,7 +35,8 @@ import { ThrottlerModule } from '@nestjs/throttler';
     {
       provide: 'APP_GUARD',
       useClass: JwtAuthGuard,
-    }
+    },
+    GenkitService
   ],
 })
 export class AppModule { }

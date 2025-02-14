@@ -5,10 +5,9 @@ generator client {
 
 // prisma/schema.prisma
 datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
-    // uncomment next line if you use Prisma <5.10
-    // directUrl = env("DATABASE_URL_UNPOOLED")
+    provider  = "postgresql"
+    url       = env("DATABASE_URL")
+    directUrl = env("DIRECT_URL")
 }
 
 model User {
@@ -23,17 +22,44 @@ model User {
 }
 
 model DoctorPatients {
-    id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-    doctorId   String   @db.Uuid
-    patientId  String   @db.Uuid
-    notes      String?
-    checklists String[]
-    plans      String[]
+    id        String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    doctorId  String  @db.Uuid
+    patientId String  @db.Uuid
+    notes     String?
 
-    doctor  User @relation("patients", references: [id], fields: [doctorId])
-    patient User @relation("doctors", references: [id], fields: [patientId])
+    doctor    User        @relation("patients", references: [id], fields: [doctorId], onUpdate: Cascade, onDelete: Cascade)
+    patient   User        @relation("doctors", references: [id], fields: [patientId], onUpdate: Cascade, onDelete: Cascade)
+    checklist Checklist[] @relation("checklists")
+    plans     Plan[]      @relation("plans")
 
     @@unique([patientId, doctorId])
+}
+
+model Checklist {
+    id              String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    doctorPatientId String @db.Uuid
+    action          String
+
+    doctorPatient DoctorPatients @relation("checklists", references: [id], fields: [doctorPatientId], onUpdate: Cascade, onDelete: Cascade)
+}
+
+model Plan {
+    id              String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    doctorPatientId String @db.Uuid
+    action          String
+
+    doctorPatient DoctorPatients @relation("plans", references: [id], fields: [doctorPatientId], onUpdate: Cascade, onDelete: Cascade)
+
+    schedule Schedule[] @relation("planItemSchedule")
+}
+
+model Schedule {
+    id        String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    planId    String @db.Uuid
+    dayOfWeek String
+    timeOfDay String
+
+    plan Plan @relation("planItemSchedule", references: [id], fields: [planId], onUpdate: Cascade, onDelete: Cascade)
 }
 
 enum Role {
