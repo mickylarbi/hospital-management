@@ -17,6 +17,23 @@ model User {
     email    String @unique
     password String
     role     Role
+
+    patients DoctorPatients[] @relation("patients")
+    doctors  DoctorPatients[] @relation("doctors")
+}
+
+model DoctorPatients {
+    id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    doctorId   String   @db.Uuid
+    patientId  String   @db.Uuid
+    notes      String?
+    checklists String[]
+    plans      String[]
+
+    doctor  User @relation("patients", references: [id], fields: [doctorId])
+    patient User @relation("doctors", references: [id], fields: [patientId])
+
+    @@unique([patientId, doctorId])
 }
 
 enum Role {

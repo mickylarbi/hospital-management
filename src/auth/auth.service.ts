@@ -18,7 +18,7 @@ export class AuthService {
     try {
       
       data.password = Buffer.from(data.password, 'base64').toString('utf-8')
-      data.password = await bcrypt.hash(data.password, 10)
+      data.password = await bcrypt.hashSync(data.password, 10)
       await this.prismaService.user.create({ data })
 
       return { message: 'User created successfully' }
