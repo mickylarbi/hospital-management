@@ -1,5 +1,5 @@
 import { Role } from "@prisma/client"
-import { IsEmail, IsEnum, IsString } from "class-validator"
+import { IsBase64, IsEmail, IsEnum, IsString } from "class-validator"
 
 export class SignUpDto {
 
@@ -9,7 +9,7 @@ export class SignUpDto {
     @IsEmail()
     email: string
 
-    @IsString()
+    @IsBase64()
     password: string
 
     @IsEnum(Role)

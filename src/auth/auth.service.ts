@@ -16,7 +16,8 @@ export class AuthService {
   async signUp(data: Prisma.XOR<Prisma.UserCreateInput, Prisma.UserUncheckedCreateInput>) {
 
     try {
-
+      
+      data.password = Buffer.from(data.password, 'base64').toString('utf-8')
       data.password = await bcrypt.hash(data.password, 10)
       await this.prismaService.user.create({ data })
 
