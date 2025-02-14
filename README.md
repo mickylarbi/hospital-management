@@ -1,4 +1,75 @@
-<p align="center">
+# Hospital Mangement System Backend
+
+## Stack
+
+- NestJS
+- Prisma
+- PostgreSQL
+- Google Gemini
+- Passport
+
+## Endpoints
+
+- POST `/auth/signup`: endpoint for registering new users
+- POST `/auth/login`: endpoint for authenticating
+- GET `/doctors`: endpoint for getting all doctors. only patients can access this endpoint
+- GET `/patients`: endpoint for getting a doctors patients. only doctors can access this endpoint
+- POST `/doctors/{doctorId}/assign`: endpoint for assigning doctors to patients. only patients can access this endpoint
+- PATCH `/patients/{patientId}/notes`: endpoint for adding doctor notes. accessible to doctors only
+- PATCH `/patients/{patientId}/actionable-items`: endpoint for getting a patient's actionable items. accessible to doctors only
+- PATCH `/doctors/{doctorId}/actionable-items`: endpoint for getting a doctor's actionable items. accessible to patients only
+
+## Authentication
+
+- Used the Local Strategy from passport for `/auth/login`.
+- And also JWT Strategy for all other routes except `/auth/signup`
+
+## Database
+
+- Used PostgreSQL database from [Supabase](https://supabase.com)
+- Used [Prisma](https://prisma.io) ORM
+
+## Generative AI
+
+- Used [Gemini 2.0 Flash](https://deepmind.google/technologies/gemini/flash/) as the underlying model
+- Used [Genkit](https://firebase.google.com/docs/genkit) API from Google
+
+## Running the app
+
+#### Install dependencies
+
+```bash
+$ npm install --legacy-peer-deps
+```
+
+#### Sync database with Prisma
+
+```bash
+$ npx prisma migrate dev --name init
+```
+
+#### Build app
+
+```bash
+$ npm run build
+```
+
+#### Run app
+
+```bash
+$ npm run start:prod
+```
+
+## Noteworthy
+
+You should have the following variables in your .env (project level).
+
+- `ACCESS_TOKEN_SECRET`: secret for signing jwts
+- `DATABASE_URL`: from supabase or whatever postgres db
+- `DIRECT_URL`: from supabase or whatever postgres db
+- `GOOGLE_GENAI_API_KEY`: api key from Google AI Studio
+
+<!-- <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
 
@@ -19,14 +90,14 @@
     <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
   <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
 </p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
+  <!-- [![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+<!-- ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository. -->
 
-## Project setup
+<!-- ## Project setup
 
 ```bash
 $ npm install
@@ -43,8 +114,8 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
-```
-
+``` -->
+<!--
 ## Run tests
 
 ```bash
@@ -56,8 +127,8 @@ $ npm run test:e2e
 
 # test coverage
 $ npm run test:cov
-```
-
+``` -->
+<!--
 ## Resources
 
 Check out a few resources that may come in handy when working with NestJS:
@@ -82,4 +153,4 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 ## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE). -->
