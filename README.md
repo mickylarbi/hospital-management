@@ -2,7 +2,7 @@
 
 ## Stack
 
-- NestJS
+- [NestJS](https://nestjs.com/)
 - Prisma
 - PostgreSQL
 - Google Gemini
@@ -166,7 +166,7 @@ endpoint for getting a doctor's actionable items. accessible to patients only
 
 ## Database
 
-- Used PostgreSQL database from [Supabase](https://supabase.com)
+- Used [PostgreSQL](https://www.postgresql.org/) database from [Supabase](https://supabase.com)
 - Used [Prisma](https://prisma.io) ORM
 
 ## Generative AI
