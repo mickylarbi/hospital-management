@@ -8,20 +8,160 @@
 - Google Gemini
 - Passport
 
+<br><br>
+
 ## Endpoints
 
-- POST `/auth/signup`: endpoint for registering new users
-- POST `/auth/login`: endpoint for authenticating
-- GET `/doctors`: endpoint for getting all doctors. only patients can access this endpoint
-- GET `/patients`: endpoint for getting a doctors patients. only doctors can access this endpoint
-- POST `/doctors/{doctorId}/assign`: endpoint for assigning doctors to patients. only patients can access this endpoint
-- PATCH `/patients/{patientId}/notes`: endpoint for adding doctor notes. accessible to doctors only
-- PATCH `/patients/{patientId}/actionable-items`: endpoint for getting a patient's actionable items. accessible to doctors only
-- PATCH `/doctors/{doctorId}/actionable-items`: endpoint for getting a doctor's actionable items. accessible to patients only
+### POST `/auth/signup`:
+
+endpoint for registering new users
+
+##### Request body
+
+```json
+{
+  "name": "string",
+  "email": "string",
+  "password": "base64 string"
+}
+```
+
+<br>
+
+### POST `/auth/login`:
+
+endpoint for authenticating
+
+##### Request body
+
+```json
+{
+  "email": "string",
+  "password": "base64 string"
+}
+```
+
+##### Response body
+
+```json
+{
+  "access_token": "string"
+}
+```
+
+<br>
+
+### GET `/doctors`:
+
+endpoint for getting all doctors. only patients can access this endpoint
+
+##### Response body
+
+```json
+[
+  {
+    "id": "string",
+    "name": "string",
+    "email": "string",
+    "role": "DOCTOR"
+  }
+]
+```
+
+<br>
+
+### GET `/patients`:
+
+endpoint for getting a doctors patients. only doctors can access this endpoint
+
+##### Response body
+
+```json
+[
+  {
+    "id": "string",
+    "name": "string",
+    "email": "string",
+    "role": "PATIENT"
+  }
+]
+```
+
+<br>
+
+### POST `/doctors/{doctorId}/assign`:
+
+endpoint for assigning doctors to patients. only patients can access this endpoint
+
+<br>
+
+### PATCH `/patients/{patientId}/notes`:
+
+endpoint for adding doctor notes. accessible to doctors only
+
+##### Request body
+
+```json
+{
+  "notes": "string"
+}
+```
+
+<br>
+
+### GET `/patients/{patientId}/actionable-items`:
+
+endpoint for getting a patient's actionable items. accessible to doctors only
+
+##### Response body
+
+```json
+{
+  "checklist": ["string"],
+  "plans": [
+    {
+      "action": "string",
+      "schedule": [
+        {
+          "dayOfWeek": "string",
+          "timeOfDay": "string"
+        }
+      ]
+    }
+  ]
+}
+```
+
+<br>
+
+### GET `/doctors/{doctorId}/actionable-items`:
+
+endpoint for getting a doctor's actionable items. accessible to patients only
+
+##### Response body
+
+```json
+{
+  "checklist": ["string"],
+  "plans": [
+    {
+      "action": "string",
+      "schedule": [
+        {
+          "dayOfWeek": "string",
+          "timeOfDay": "string"
+        }
+      ]
+    }
+  ]
+}
+```
+
+<br><br>
 
 ## Authentication
 
-- Used the Local Strategy from passport for `/auth/login`.
+- Used the Local Strategy from [PassportJS](https://www.passportjs.org/) for `/auth/login`.
 - And also JWT Strategy for all other routes except `/auth/signup`
 
 ## Database
@@ -33,6 +173,8 @@
 
 - Used [Gemini 2.0 Flash](https://deepmind.google/technologies/gemini/flash/) as the underlying model
 - Used [Genkit](https://firebase.google.com/docs/genkit) API from Google
+
+<br><br>
 
 ## Running the app
 
@@ -59,6 +201,8 @@ $ npm run build
 ```bash
 $ npm run start:prod
 ```
+
+<br><br>
 
 ## Noteworthy
 
