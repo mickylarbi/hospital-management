@@ -55,6 +55,14 @@ endpoint for authenticating
 
 endpoint for getting all doctors. only patients can access this endpoint
 
+##### Request headers
+
+```json
+{
+  "Authorization": "Bearer <jwt>"
+}
+```
+
 ##### Response body
 
 ```json
@@ -72,7 +80,15 @@ endpoint for getting all doctors. only patients can access this endpoint
 
 ### GET `/patients`:
 
-endpoint for getting a doctors patients. only doctors can access this endpoint
+endpoint for getting a doctor's patients. only doctors can access this endpoint
+
+##### Request headers
+
+```json
+{
+  "Authorization": "Bearer <jwt>"
+}
+```
 
 ##### Response body
 
@@ -93,11 +109,27 @@ endpoint for getting a doctors patients. only doctors can access this endpoint
 
 endpoint for assigning doctors to patients. only patients can access this endpoint
 
+##### Request headers
+
+```json
+{
+  "Authorization": "Bearer <jwt>"
+}
+```
+
 <br>
 
 ### PATCH `/patients/{patientId}/notes`:
 
 endpoint for adding doctor notes. accessible to doctors only
+
+##### Request headers
+
+```json
+{
+  "Authorization": "Bearer <jwt>"
+}
+```
 
 ##### Request body
 
@@ -112,6 +144,14 @@ endpoint for adding doctor notes. accessible to doctors only
 ### GET `/patients/{patientId}/actionable-items`:
 
 endpoint for getting a patient's actionable items. accessible to doctors only
+
+##### Request headers
+
+```json
+{
+  "Authorization": "Bearer <jwt>"
+}
+```
 
 ##### Response body
 
@@ -137,6 +177,14 @@ endpoint for getting a patient's actionable items. accessible to doctors only
 ### GET `/doctors/{doctorId}/actionable-items`:
 
 endpoint for getting a doctor's actionable items. accessible to patients only
+
+##### Request headers
+
+```json
+{
+  "Authorization": "Bearer <jwt>"
+}
+```
 
 ##### Response body
 
